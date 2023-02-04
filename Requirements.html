@@ -1,0 +1,219 @@
+<html>
+
+<head>
+<title>Requirements</title>
+<style type="text/css">
+<!--
+body {
+	margin: 0.5cm;
+	/*
+	font-size: 13px;
+	*/
+	}
+p   {
+    margin-top: 0.1em;
+    margin-bottom: 0.5em;
+    }
+b   {
+	font-family: monospace;
+	color: MidnightBlue;
+	background: #f8f8f8;
+	border-radius: 2pt;
+	padding: 1pt;
+/*
+    font-size=85%;
+	border: 1pt dotted silver;
+*/
+	}
+	
+i   {
+	color: Navy;
+	font-family: monospace;
+	}
+	
+h1  {
+	font-family: sans-serif;
+	text-align: center;
+    line-height: 1.1em;
+	}
+	
+h2  {
+	color: RoyalBlue;
+	font-family: sans-serif;
+	border-top: 1px dotted gray;
+	}
+.hint {
+    color:LightSlateGray;
+    margin-left:10ch;
+    margin-right:10ch;
+    text-indent:-5ch;
+    }
+.hint b {
+	font-family: inherit;
+	color: MidnightBlue;
+	background: inherit;
+	border-radius: inherit;
+	padding: inherit;
+    }
+.hint i {
+	color: gray;
+    }
+
+@media print {
+body {
+	font-size: 10pt;
+	}
+
+  h2 {
+  	float:left;
+    margin-top: 0;
+    padding: 5px 15px 5px 0px;
+    line-height: 0.8em;
+  	}
+}
+table {
+	float: right;
+	margin: 20px;
+	border-collapse:collapse;
+	border-bottom: 1px solid Navy;
+	border-top: 1px solid Navy;
+	}
+td, th  {
+	padding: 1px 5px 1px 5px;
+	}
+tr:nth-child(even) {
+    background-color: PowderBlue;
+    margin: 1pt solid PowderBlue;
+}
+-->
+</style>
+</head>
+
+<body lang=EN>
+
+<h1>Bank System</h1>
+
+<p>Write a program that provides the basic banking services</p>
+
+<p>All the classes are contained in package <b>BankServices</b>.
+</p>
+
+<p>The class <b>MainClass</b> in package <b>Main</b> provides a few usage examples for the main methods.<br>
+
+<p>The <a href="http://softeng.polito.it/courses/docs/api/index.html"
+target="_blank">JDK documentation</a> is available on a local server.</p>
+
+<h2>R1: Bank Services</h2>
+
+<p>The constructor of class <b>Bank</b> accepts as argument a string representing the name of the bank;
+the method <b>getName()</b> returns such a name.</p>
+
+<p>The dates of all operations are represented by means of an integer from 1 to 365, corresponding to the day 
+of the current year.</p>
+
+<p>Every bank account activated with a bank is represented by an object of class <b>Account</b>.</p>
+
+<p>The method  <b>createAccount()</b> allows activating an new bank account and accepts three
+arguments: the name of the account owner, the activation date, and the amount of the initial deposit;
+the method returns an integer corresponding to the newly created account number (the numbers start with 1
+and are incremented by 1 for each new account); the activation of an account represents the
+first operation performed on it.</p>
+
+<p>The method <b>getAccount()</b> accepts an account number and returns the corresponding object of
+class <i>Account</i>; if the number does not match any active account a <b>InvalidCode</b> exception is thrown.</p>
+
+<p>The method <b>deposit()</b> allows performing a deposit to the account; it accepts
+as arguments the account number, the date of the deposit, and the amount; 
+if the number does not match any active account a <i>InvalidCode</i> exception is thrown;
+if the given date precedes that of the last operation on the account, the deposit
+is performed on the same date as the latest operation.</p>
+
+<p>The method <b>withdraw()</b> allow performing a withdrawal from the account;
+it accepts as arguments the account number, the withdrawal date, and the amount to be withdrawn;
+if the number does not match any active account a <i>InvalidCode</i> exception is thrown;
+if the given amount is greater than the account balance an <b>InvalidValue</b> is thrown;
+if the given date precedes that of the last operation on the account, the withdrawal
+is performed on the same date as the latest operation.</p>
+
+
+<p>The method <b>transfer()</b> allows performing a bank transfer to another
+account of the same bank; it accepts as arguments the source account number,
+the destination account number, the date, and the amount;
+if any of the account numbers does not match any active account a <i>InvalidCode</i> exception is thrown;
+if the given amount is greater than the source account balance an <i>InvalidValue</i> is thrown;
+the dates of the operations on the source and destination accounts are defined
+with the criteria presented above; in any case the operation date on the destination account
+must be greater or equal to the date on the source account.</p>
+
+<p>The method <b>deleteAccount()</b> allows closing an account by withdrawing all the
+available money; it accepts as arguments the account number and the date, and returns
+the closed <i>Account</i>;
+if any of the account numbers does not match any active account a <i>InvalidCode</i> exception is thrown;
+if the given date precedes that of the last operation on the account, the closure
+is performed on the same date as the latest operation.</p>
+
+
+<h2>R2: Operations</h2>
+
+<p>The abstract class <b>Operation</b> represents a generic operation performed on a bank account.</p>
+
+<p>There are two possible operations: deposit (represented by class <b>Deposit</b>)
+and withdrawal (represented by class <b>Withdrawal</b>).</p>
+
+<p>Both classes implement the method <b>toString()</b>,
+that returns a string consisting of: the operation date, a comma ("<i>,</i>"),
+the amount of the operation followed by a sign <i>+</i> o <i>-</i>
+when the operation is respectively a deposit or a withdrawal, without intermediate blanks
+(Examples: "<i>5,500.5+</i>",   "<i>41,158.0-</i>" ).</p>
+
+<p>The activation of an account implicitly performs a deposit, while
+the closure implies a withdrawal.</p>
+
+
+
+<h2>R3: Accounts</h2>
+
+<p>The class <b>Account</b> implements the method <b>toString()</b>,
+that returns a string consisting of: the account number, the name of the owner,
+the date of the latest operation, and the current balance, all separated
+by commas ("<i>,</i>") and without intermediate blanks (e.g. "<i>4,Paul,35,522.3</i>").</p>
+
+
+<p>In addition the class provides the following methods:</p>
+
+<p><b>getMovements()</b> returns the list of all the operations
+performed on the account, sorted by decreasing dates;</p>
+
+<p><b>getDeposits()</b> returns the list of all the deposits performed
+in the account, sorted by increasing amounts;</p>
+
+<p><b>getWithdrawals()</b> returns the list of all withdrawals
+performed on the account, sorted by increasing amounts.</p>
+
+
+
+<h2>R4: Reports</h2>
+
+<p>The following methods of class <i>Bank</i> provide information about
+the active accounts opened with the bank (the closed account are ignored):</p>
+
+<p><b>getTotalDeposit()</b> returns the total amount of money currently
+deposited with the bank (sum of all accounts balances) ;</p>
+
+<p><b>getAccounts()</b> returns the list of all active accounts, 
+sorted by ascending account number;</p>
+
+
+<p><b>getZeroAccounts()</b> returns the list of all accounts with balance equal to 0;</p>
+
+<p><b>getAccountsByBalance()</b> accepts an amount range and returns the list
+of active accounts with a balance within the given range, sorted
+by decreasing balances;</p>
+
+<p><b>getNumberHigher()</b> accepts an amount and returns the
+number of accounts having a balance not smaller than the
+given amount.</p>
+
+</body>
+
+</html>
