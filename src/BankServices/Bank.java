@@ -69,7 +69,18 @@ public class Bank {
 		for (Account account : accounts) {
 			if (account.getBalance() > 0) activeAccounts.add(account);
 		}
-		Collections.sort(activeAccounts, new ByCodeAccountComparatorReversed());
+
+		class ByCodeAccountComparatorReversed implements Comparator<Account>{
+			@Override
+			public int compare(Account o1, Account o2) {
+				return o2.getCode() - o1.getCode();
+			}
+		}
+
+		ByCodeAccountComparatorReversed comparator = new ByCodeAccountComparatorReversed();
+
+
+		Collections.sort(activeAccounts, comparator);
 		return activeAccounts;
 	}
 	
@@ -101,13 +112,6 @@ public class Bank {
 			}
 		}
 		return count;
-	}
-
-	private static class ByCodeAccountComparatorReversed implements Comparator<Account>{
-		@Override
-		public int compare(Account o1, Account o2) {
-			return o2.getCode() - o1.getCode();
-		}
 	}
 
 	private static class ByBalanceAccountComparatorReversed implements Comparator<Account>{

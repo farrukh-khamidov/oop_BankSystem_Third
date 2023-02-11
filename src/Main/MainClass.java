@@ -31,7 +31,7 @@ public class MainClass {
 			b1.withdraw(c3, 28, 350.0);
 			b1.withdraw(c2, 19, 350.0);
 			b1.withdraw(c3, 41, 158.0);
-			b1.transfer(c1, c3, 8, 400.0);
+			b1.transfer(c1, c3, 8, 4000.0);
 			a1 = b1.getAccount(c1);
 			a3 = b1.deleteAccount(c3,50);
 		}
