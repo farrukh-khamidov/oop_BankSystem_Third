@@ -106,6 +106,13 @@ public class Bank {
 				accountsByBalance.add(account);
 			}
 		}
+		class ByBalanceAccountComparatorReversed implements Comparator<Account>{
+			@Override
+			public int compare(Account o1, Account o2) {
+				return (int) (o2.getBalance() - o1.getBalance());
+			}
+		}
+
 		accountsByBalance.sort(new ByBalanceAccountComparatorReversed());
 		return accountsByBalance;
 	}
@@ -120,10 +127,4 @@ public class Bank {
 		return count;
 	}
 
-	private static class ByBalanceAccountComparatorReversed implements Comparator<Account>{
-		@Override
-		public int compare(Account o1, Account o2) {
-			return (int) (o2.getBalance() - o1.getBalance());
-		}
-	}
 }

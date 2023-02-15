@@ -1,7 +1,6 @@
 package BankServices;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -48,24 +47,37 @@ public class Account {
 	}
 		
 	public List<Operation> getMovements() {
+		class ByDateOperationComparatorReversed implements Comparator<Operation> {
+			@Override
+			public int compare(Operation o1, Operation o2) {
+				return o2.getDate() - o1.getDate();
+			}
+		}
 		operations.sort(new ByDateOperationComparatorReversed());
 		return operations;
 	}
 
-	private static class ByDateOperationComparatorReversed implements Comparator<Operation> {
-		@Override
-		public int compare(Operation o1, Operation o2) {
-			return o2.getDate() - o1.getDate();
-		}
-	}
+
 	
 	public List<Deposit> getDeposits() {
-		deposits.sort(new ByDateOperationComparatorReversed());
+		class ByDateDepositComparatorReversed implements Comparator<Deposit> {
+			@Override
+			public int compare(Deposit o1, Deposit o2) {
+				return o2.getDate() - o1.getDate();
+			}
+		}
+		deposits.sort(new ByDateDepositComparatorReversed());
 		return deposits;
 	}
 
 	public List<Withdrawal> getWithdrawals() {
-		withdrawals.sort(new ByDateOperationComparatorReversed());
+		class ByDateWithdrawalComparatorReversed implements Comparator<Withdrawal> {
+			@Override
+			public int compare(Withdrawal o1, Withdrawal o2) {
+				return o2.getDate() - o1.getDate();
+			}
+		}
+		withdrawals.sort(new ByDateWithdrawalComparatorReversed());
 		return withdrawals;
 	}
 
