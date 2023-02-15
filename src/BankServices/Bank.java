@@ -77,8 +77,14 @@ public class Bank {
 			}
 		}
 
-		ByCodeAccountComparatorReversed comparator = new ByCodeAccountComparatorReversed();
+		Comparator<Account> comparator = new ByCodeAccountComparatorReversed();
 
+		Comparator<Account> comparator1 = new Comparator<Account>() {
+			@Override
+			public int compare(Account o1, Account o2) {
+				return o2.getCode() - o1.getCode();
+			}
+		};
 
 		Collections.sort(activeAccounts, comparator);
 		return activeAccounts;
