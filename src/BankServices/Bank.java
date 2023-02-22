@@ -2,7 +2,6 @@ package BankServices;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class Bank {
@@ -70,12 +69,7 @@ public class Bank {
 			if (account.getBalance() > 0) activeAccounts.add(account);
 		}
 
-		Collections.sort(activeAccounts, new Comparator<Account>() {
-			@Override
-			public int compare(Account o1, Account o2) {
-				return o2.getCode() - o1.getCode();
-			}
-		});
+		Collections.sort(activeAccounts, (o1, o2) -> o2.getCode() - o1.getCode());
 		return activeAccounts;
 	}
 	
@@ -96,12 +90,7 @@ public class Bank {
 			}
 		}
 
-		accountsByBalance.sort(new Comparator<Account>() {
-			@Override
-			public int compare(Account o1, Account o2) {
-				return (int) (o2.getBalance() - o1.getBalance());
-			}
-		});
+		accountsByBalance.sort((o1, o2) -> (int) (o2.getBalance() - o1.getBalance()));
 		return accountsByBalance;
 	}
 	
