@@ -2,6 +2,7 @@ package BankServices;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Bank {
@@ -55,53 +56,26 @@ public class Bank {
 	}
 	
 	public double getTotalDeposit() {
-		double sum = 0;
-		for (int i = 0; i < accounts.size(); i++) {
-			Account account = accounts.get(i);
-			sum += account.getBalance();
-		}
-		return sum;
+		return accounts.stream().mapToDouble(Account::getBalance).sum();
 	}
 	
 	public List<Account> getAccounts() {
-		List<Account> activeAccounts = new ArrayList<>();
-		for (Account account : accounts) {
-			if (account.getBalance() > 0) activeAccounts.add(account);
-		}
-
-		Collections.sort(activeAccounts, (o1, o2) -> o2.getCode() - o1.getCode());
-		return activeAccounts;
+		return accounts.stream().filter(account -> account.getBalance() > 0)
+				.sorted(Comparator.comparing(Account::getCode).reversed()).toList();
 	}
 	
 
 	public List<Account> getZeroAccounts() {
-		List<Account> zeroAccounts = new ArrayList<>();
-		for (Account account : accounts) {
-			if (account.getBalance() == 0) zeroAccounts.add(account);
-		}
-		return zeroAccounts;
+		return accounts.stream().filter(account -> account.getBalance() == 0).toList();
 	}
 
 	public List<Account> getAccountsByBalance(double low, double high) {
-		List<Account> accountsByBalance = new ArrayList<>();
-		for (Account account : accounts) {
-			if (account.getBalance() >= low && account.getBalance() <= high) {
-				accountsByBalance.add(account);
-			}
-		}
-
-		accountsByBalance.sort((o1, o2) -> (int) (o2.getBalance() - o1.getBalance()));
-		return accountsByBalance;
+		return accounts.stream().filter(account -> account.getBalance() >= low && account.getBalance() <= high)
+				.sorted(Comparator.comparing(Account::getBalance).reversed()).toList();
 	}
 	
 	public long getNumberHigher(double min) {
-		long count = 0;
-		for (Account account : accounts) {
-			if (account.getBalance() >= min) {
-				count++;
-			}
-		}
-		return count;
+		return accounts.stream().filter(account -> account.getBalance() >= min).count();
 	}
 
 }
